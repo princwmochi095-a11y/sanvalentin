@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>San Valentín 💘</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.card {
+  background: white;
+  padding: 40px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0,0,0,.25);
+  z-index: 10;
+}
+
+h1 {
+  color: #ff4d6d;
+  margin-bottom: 30px;
+}
+
+button {
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#yesBtn {
+  background: #ff4d6d;
+  color: white;
+  font-size: 22px;
+  padding: 15px 35px;
+}
+
+#noBtn {
+  background: #ddd;
+  font-size: 16px;
+  padding: 10px 25px;
+  position: absolute;
+}
+
+/* corazones flotando */
+.heart {
+  position: absolute;
+  color: rgba(255,255,255,0.7);
+  font-size: 20px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(100vh) scale(0.5);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-10vh) scale(1.5);
+    opacity: 0;
+  }
+}
+
+.photo {
+  width: 260px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.3);
+  margin-bottom: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <h1>💖 ¿Quieres ser mi San Valentín, mi zai? 💖</h1>
+  <button id="yesBtn">Sí 💕</button>
+  <button id="noBtn">No 🙄</button>
+</div>
+
+<!-- 🎵 AUDIO LOCAL -->
+<audio id="musica" src="justoneday.mp3" loop></audio>
+
+<script>
+const yesBtn = document.getElementById("yesBtn");
+const noBtn = document.getElementById("noBtn");
+const musica = document.getElementById("musica");
+
+let size = 22;
+let pad = 35;
+
+// El NO huye y el SÍ crece 😈
+noBtn.addEventListener("mouseover", () => {
+  size += 6;
+  pad += 6;
+  yesBtn.style.fontSize = size + "px";
+  yesBtn.style.padding = "15px " + pad + "px";
+
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 50);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+});
+
+// Cuando dice que SÍ 💕
+yesBtn.addEventListener("click", () => {
+
+  // 🔊 reproducir música
+  musica.play();
+
+  document.body.innerHTML = `
+    <div style="
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+      text-align:center;
+      background:linear-gradient(135deg,#ff758c,#ff7eb3);
+      color:white;
+      padding:20px;
+    ">
+
+      <img src="nosotros.jpg" class="photo">
+
+      <h1 style="font-size:38px;">
+        💖 Feliz San Valentín, mi zai, mi jeoncito 💖
+      </h1>
+
+      <p style="font-size:22px; margin-bottom:25px;">
+        No importa el día ni el lugar,<br>
+        mientras sea contigo, eres lo más especial de mi vida, gracias por tanto amor sin ti mis días no tendrían sentido te amo mi pinguinito 💕
+      </p>
+
+    </div>
+  `;
+});
+
+// Corazones infinitos 💕
+setInterval(() => {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💕";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.fontSize = Math.random() * 30 + 10 + "px";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 6000);
+}, 300);
+</script>
+
+</body>
+</html>
